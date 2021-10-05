@@ -6,10 +6,10 @@ import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.*;
 
 class GenerateRandomServiceImplTest {
-    private GenerateRandomServiceImpl generateRandomService = new GenerateRandomServiceImpl();
+    private final GenerateRandomServiceImpl generateRandomService = new GenerateRandomServiceImpl();
 
     @Test
-    @DisplayName("1000번 random 생성, 0-100 까지 발생하는가?")
+    @DisplayName("random 숫자 생성, 0-100 까지 발생하는가?")
     public void test(){
         for (int i=0; i<Integer.MAX_VALUE; i++) {
             int num = generateRandomService.generate();
