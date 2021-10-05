@@ -1,0 +1,45 @@
+server:
+  tomcat:
+    basedir: ./logs/tomcat
+    accesslog:
+      enabled: true
+      file-date-format: .yyyy-MM-dd
+      pattern: "%{yyyy-MM-dd HH:mm:ss}t\trequest: %r\tstatus_code: %s\tremote_ip: %a\tlocal_ip: %A\t details: %{User-Agent}i"
+      suffix: .log
+
+logging:
+  file:
+    name: ./logs/application/logs/application.log
+  level:
+    root: info
+  logback:
+    rollingpolicy:
+      file-name-pattern: ./logs/application/logs/application_log-%d{yyyy-MM-dd}.%i.log
+      max-file-size: 30MB
+
+spring:
+  profiles:
+    active: local
+---
+server:
+  tomcat:
+    basedir: /var/log/app/tomcat
+    accesslog:
+      enabled: true
+      file-date-format: .yyyy-MM-dd
+      pattern: "%{yyyy-MM-dd HH:mm:ss}t\trequest: %r\tstatus_code: %s\tremote_ip: %a\tlocal_ip: %A\t details: %{User-Agent}i"
+      suffix: .log
+
+logging:
+  file:
+    name: /var/log/app/application/logs/application.log
+  level:
+    root: info
+  logback:
+    rollingpolicy:
+      file-name-pattern: /var/log/app/application/logs/application-%d{yyyy-MM-dd}.%i.log
+      max-file-size: 30MB
+
+spring:
+  profiles:
+    active: prod
