@@ -7,7 +7,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.test.web.servlet.MockMvc;
+import org.springframework.web.util.NestedServletException;
 
+import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.when;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
@@ -61,5 +63,18 @@ class IndexControllerTest {
                 .andDo(print())
                 .andExpect(status().is5xxServerError())
                 .andExpect(content().string(containsString("error - 5xx")));
+    }
+
+    @Test
+    @DisplayName("GET / 테스트 - logic error")
+    public void get_index_page_logic_error() {
+        when(generateRandomNumberService.generate()).thenReturn(-1);
+        Exception exception = assertThrows(NestedServletException.class, () -> {
+            this.mockMvc.perform(get("/"));
+        });
+
+        String expected = "logic error";
+        String actual = exception.getMessage();
+        assertTrue(actual.contains(expected));
     }
 }
