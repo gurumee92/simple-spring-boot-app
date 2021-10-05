@@ -1,18 +1,15 @@
 package com.gurumee.simplespringbootapp.controllers;
 
 import com.gurumee.simplespringbootapp.apis.services.GenerateRandomNumberService;
-import lombok.extern.java.Log;
+import lombok.extern.log4j.Log4j2;
+import org.slf4j.event.Level;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
-import java.net.http.HttpResponse;
-
 @RestController
-@Log
+@Log4j2
 public class IndexController {
     private final GenerateRandomNumberService generateRandomNumberService;
 
@@ -24,7 +21,7 @@ public class IndexController {
     public ResponseEntity<String> index() {
         int randomNumber = generateRandomNumberService.generate();
         int rest = randomNumber % 4;
-        log.info("rest: " + rest);
+        log.debug("rest: " + rest);
 
         switch (rest) {
             case 0:
