@@ -9,7 +9,7 @@ server:
 
 logging:
   file:
-    name: ./logs/application/logs/application.log
+    name: ./logs/application/application.log
   level:
     root: info
   logback:
