@@ -1,7 +1,7 @@
 server:
   tomcat:
-    basedir: ./logs/tomcat
     accesslog:
+      directory: ./logs/tomcat/
       enabled: true
       file-date-format: .yyyy-MM-dd
       pattern: "%{yyyy-MM-dd HH:mm:ss}t\trequest: %r\tstatus_code: %s\tremote_ip: %a\tlocal_ip: %A\t details: %{User-Agent}i"
@@ -20,11 +20,21 @@ logging:
 spring:
   profiles:
     active: local
+  application:
+    name: example
+management:
+  endpoints:
+    web:
+      exposure:
+        include: "prometheus"
+  metrics:
+    tags:
+      application: ${spring.application.name}
 ---
 server:
   tomcat:
-    basedir: /var/log/app/tomcat
     accesslog:
+      directory: /var/log/tomcat/
       enabled: true
       file-date-format: .yyyy-MM-dd
       pattern: "%{yyyy-MM-dd HH:mm:ss}t\trequest: %r\tstatus_code: %s\tremote_ip: %a\tlocal_ip: %A\t details: %{User-Agent}i"
@@ -32,7 +42,7 @@ server:
 
 logging:
   file:
-    name: /var/log/app/application/logs/application.log
+    name: /var/log/spring/application.log
   level:
     root: info
   logback:
@@ -43,3 +53,13 @@ logging:
 spring:
   profiles:
     active: prod
+  application:
+    name: example
+management:
+  endpoints:
+    web:
+      exposure:
+        include: "prometheus"
+  metrics:
+    tags:
+      application: ${spring.application.name}
