@@ -25,12 +25,16 @@ public class IndexController {
 
         switch (rest) {
             case 0:
+                log.info("status 2xx");
                 return ResponseEntity.status(HttpStatus.OK).body("ok - 2xx");
             case 1:
+                log.info("status 3xx");
                 return ResponseEntity.status(HttpStatus.FOUND).body("redirect - 3xx");
             case 2:
+                log.error("status 4xx");
                 return ResponseEntity.status(HttpStatus.NOT_FOUND).body("error - 4xx");
             case 3:
+                log.error("status 5xx");
                 return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("error - 5xx");
             default:
                 throw new RuntimeException("logic error");
